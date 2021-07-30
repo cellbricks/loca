@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "github.com/cellbricks/LoA/pkg/blindsig/proto";
+
+package proto;
+
+service BlindSig {
+  rpc GetToken(Padding) returns (Token) {}
+}
+
+message Padding{
+  string padding = 1;
+}
+
+message Token {
+  string token = 1;
+}
