@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	pb "cellbricks/LoA/pkg/blindsig/proto"
+
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -20,6 +21,8 @@ func NewSenderServer() *senderServer {
 	s := &senderServer{}
 	return s
 }
+
+// XXX methods below use test key
 
 func (s *senderServer) Gen(context.Context, *pb.GenRequest) (*pb.GenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Gen not implemented")

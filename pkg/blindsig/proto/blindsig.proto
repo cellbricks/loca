@@ -4,14 +4,13 @@ option go_package = "github.com/cellbricks/LoA/pkg/blindsig/proto";
 
 package proto;
 
-// bTelco
+
 service Sender {
   rpc Gen(GenRequest) returns (GenResponse) {}
 }
 
 message GenRequest {
   string message = 1;
-  string key = 2;
 }
 
 message GenResponse {
@@ -20,7 +19,8 @@ message GenResponse {
   string hashed = 3;
 }
 
-// Broker. We assume signer also verifies.
+// Signer's key pairs are distributed in other means.
+// We assume signer also verifies.
 service Signer {
   rpc Sign(SignRequest) returns (SignResponse) {}
   rpc Verify(VerifyRequest) returns (VerifyResponse) {}
@@ -28,7 +28,6 @@ service Signer {
 
 message SignRequest {
   string token = 1;
-  string key = 2;
 }
 
 message SignResponse {
@@ -38,7 +37,6 @@ message SignResponse {
 message VerifyRequest {
   string message = 1;
   string sig = 2;
-  string key = 3;
 }
 
 message VerifyResponse {
