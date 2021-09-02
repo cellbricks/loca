@@ -1,26 +1,73 @@
 package blindsig
 
 import (
-	"github.com/cryptoballot/rsablind"
 	"testing"
+
+	"crypto/rand"
+	"crypto/rsa"
+
+	"github.com/cryptoballot/rsablind"
 )
 
-func TestGenToken(t *testing.T) {
-	padding := "loa"
-	want := "loa"
-	token, ub, err := GenToken(padding)
+const (
+	message = "loa"
+)
 
+var (
+	// the broker's pk-psk
+	testKey, _ = rsa.GenerateKey(rand.Reader, keySize)
+	// TBD use external key pairs
+)
+
+func TestGenSignToken(t *testing.T) {
+	b, ub, hashed, err := Gen(message, &testKey.PublicKey)
 	if err != nil {
-		t.Fatalf(`Token("loa") = %q, %v, want match for %#q, nil`, token, err, want)
+		t.Fatalf("%v", err)
+	}
+	sig, err := Sign(b, testKey)
+	if err != nil {
+		t.Fatalf("%v", err)
 	}
 
 	// Unblind the signature
-	unblindedSig := rsablind.Unblind(&key.PublicKey, sig, unblinder)
+	// Note: run at the bTelco
+	unblindedSig := rsablind.Unblind(&testKey.PublicKey, sig, ub)
 
 	// Verify the original hashed message against the unblinded signature
-	if err := rsablind.VerifyBlindSignature(&key.PublicKey, hashed, unblindedSig); err != nil {
-		t.Fatalf(`Token("loa") = %q, %v, want match for %#q, nil`, token, err, want)
-	} else {
-		fmt.Println("ALL IS WELL")
+	// Note: one can verify without the private signing key
+	// Note: the signer has never seen the hashed message and the verifier
+	// won't see the original signature.
+	ok, err := Verify(hashed, unblindedSig, &testKey.PublicKey)
+	if !ok || err != nil {
+		t.Fatalf("%v %v", ok, err)
+	}
+}
+
+// Offline
+func BenchmarkGenToken(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		_, _, _, _ = Gen(message, &testKey.PublicKey)
+	}
+}
+
+// Offline
+func BenchmarkSignToken(b *testing.B) {
+	t, _, _, _ := Gen(message, &testKey.PublicKey)
+
+	b.ResetTimer()
+	for n := 0; n < b.N; n++ {
+		_, _ = Sign(t, testKey)
+	}
+}
+
+// During attachment
+func BenchmarkVerifyToken(b *testing.B) {
+	t, ub, hashed, _ := Gen(message, &testKey.PublicKey)
+	sig, _ := Sign(t, testKey)
+	ubsig := rsablind.Unblind(&testKey.PublicKey, sig, ub)
+
+	b.ResetTimer()
+	for n := 0; n < b.N; n++ {
+		_, _ = Verify(hashed, ubsig, &testKey.PublicKey)
 	}
 }
