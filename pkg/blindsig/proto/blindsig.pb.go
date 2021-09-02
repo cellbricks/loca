@@ -20,16 +20,17 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Padding struct {
+type GenRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Padding string `protobuf:"bytes,1,opt,name=padding,proto3" json:"padding,omitempty"`
+	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Key     string `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
 }
 
-func (x *Padding) Reset() {
-	*x = Padding{}
+func (x *GenRequest) Reset() {
+	*x = GenRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_pkg_blindsig_proto_blindsig_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -37,13 +38,13 @@ func (x *Padding) Reset() {
 	}
 }
 
-func (x *Padding) String() string {
+func (x *GenRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Padding) ProtoMessage() {}
+func (*GenRequest) ProtoMessage() {}
 
-func (x *Padding) ProtoReflect() protoreflect.Message {
+func (x *GenRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_pkg_blindsig_proto_blindsig_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -55,28 +56,37 @@ func (x *Padding) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Padding.ProtoReflect.Descriptor instead.
-func (*Padding) Descriptor() ([]byte, []int) {
+// Deprecated: Use GenRequest.ProtoReflect.Descriptor instead.
+func (*GenRequest) Descriptor() ([]byte, []int) {
 	return file_pkg_blindsig_proto_blindsig_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Padding) GetPadding() string {
+func (x *GenRequest) GetMessage() string {
 	if x != nil {
-		return x.Padding
+		return x.Message
 	}
 	return ""
 }
 
-type Token struct {
+func (x *GenRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+type GenResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Token  string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	R      string `protobuf:"bytes,2,opt,name=r,proto3" json:"r,omitempty"`
+	Hashed string `protobuf:"bytes,3,opt,name=hashed,proto3" json:"hashed,omitempty"`
 }
 
-func (x *Token) Reset() {
-	*x = Token{}
+func (x *GenResponse) Reset() {
+	*x = GenResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_pkg_blindsig_proto_blindsig_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -84,13 +94,13 @@ func (x *Token) Reset() {
 	}
 }
 
-func (x *Token) String() string {
+func (x *GenResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Token) ProtoMessage() {}
+func (*GenResponse) ProtoMessage() {}
 
-func (x *Token) ProtoReflect() protoreflect.Message {
+func (x *GenResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_pkg_blindsig_proto_blindsig_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -102,14 +112,240 @@ func (x *Token) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Token.ProtoReflect.Descriptor instead.
-func (*Token) Descriptor() ([]byte, []int) {
+// Deprecated: Use GenResponse.ProtoReflect.Descriptor instead.
+func (*GenResponse) Descriptor() ([]byte, []int) {
 	return file_pkg_blindsig_proto_blindsig_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *Token) GetToken() string {
+func (x *GenResponse) GetToken() string {
 	if x != nil {
 		return x.Token
+	}
+	return ""
+}
+
+func (x *GenResponse) GetR() string {
+	if x != nil {
+		return x.R
+	}
+	return ""
+}
+
+func (x *GenResponse) GetHashed() string {
+	if x != nil {
+		return x.Hashed
+	}
+	return ""
+}
+
+type SignRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Key   string `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
+}
+
+func (x *SignRequest) Reset() {
+	*x = SignRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_blindsig_proto_blindsig_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SignRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SignRequest) ProtoMessage() {}
+
+func (x *SignRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_blindsig_proto_blindsig_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SignRequest.ProtoReflect.Descriptor instead.
+func (*SignRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_blindsig_proto_blindsig_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *SignRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *SignRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+type SignResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Sig string `protobuf:"bytes,1,opt,name=sig,proto3" json:"sig,omitempty"`
+}
+
+func (x *SignResponse) Reset() {
+	*x = SignResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_blindsig_proto_blindsig_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SignResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SignResponse) ProtoMessage() {}
+
+func (x *SignResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_blindsig_proto_blindsig_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SignResponse.ProtoReflect.Descriptor instead.
+func (*SignResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_blindsig_proto_blindsig_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *SignResponse) GetSig() string {
+	if x != nil {
+		return x.Sig
+	}
+	return ""
+}
+
+type VerifyRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Sig     string `protobuf:"bytes,2,opt,name=sig,proto3" json:"sig,omitempty"`
+	Key     string `protobuf:"bytes,3,opt,name=key,proto3" json:"key,omitempty"`
+}
+
+func (x *VerifyRequest) Reset() {
+	*x = VerifyRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_blindsig_proto_blindsig_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *VerifyRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VerifyRequest) ProtoMessage() {}
+
+func (x *VerifyRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_blindsig_proto_blindsig_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VerifyRequest.ProtoReflect.Descriptor instead.
+func (*VerifyRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_blindsig_proto_blindsig_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *VerifyRequest) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *VerifyRequest) GetSig() string {
+	if x != nil {
+		return x.Sig
+	}
+	return ""
+}
+
+func (x *VerifyRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+type VerifyResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Success string `protobuf:"bytes,1,opt,name=success,proto3" json:"success,omitempty"`
+}
+
+func (x *VerifyResponse) Reset() {
+	*x = VerifyResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_blindsig_proto_blindsig_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *VerifyResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VerifyResponse) ProtoMessage() {}
+
+func (x *VerifyResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_blindsig_proto_blindsig_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VerifyResponse.ProtoReflect.Descriptor instead.
+func (*VerifyResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_blindsig_proto_blindsig_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *VerifyResponse) GetSuccess() string {
+	if x != nil {
+		return x.Success
 	}
 	return ""
 }
@@ -119,18 +355,43 @@ var File_pkg_blindsig_proto_blindsig_proto protoreflect.FileDescriptor
 var file_pkg_blindsig_proto_blindsig_proto_rawDesc = []byte{
 	0x0a, 0x21, 0x70, 0x6b, 0x67, 0x2f, 0x62, 0x6c, 0x69, 0x6e, 0x64, 0x73, 0x69, 0x67, 0x2f, 0x70,
 	0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x62, 0x6c, 0x69, 0x6e, 0x64, 0x73, 0x69, 0x67, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x12, 0x05, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x23, 0x0a, 0x07, 0x50, 0x61,
-	0x64, 0x64, 0x69, 0x6e, 0x67, 0x12, 0x18, 0x0a, 0x07, 0x70, 0x61, 0x64, 0x64, 0x69, 0x6e, 0x67,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x70, 0x61, 0x64, 0x64, 0x69, 0x6e, 0x67, 0x22,
-	0x1d, 0x0a, 0x05, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65,
-	0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x32, 0x36,
-	0x0a, 0x08, 0x42, 0x6c, 0x69, 0x6e, 0x64, 0x53, 0x69, 0x67, 0x12, 0x2a, 0x0a, 0x08, 0x47, 0x65,
-	0x74, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x0e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x50,
-	0x61, 0x64, 0x64, 0x69, 0x6e, 0x67, 0x1a, 0x0c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54,
-	0x6f, 0x6b, 0x65, 0x6e, 0x22, 0x00, 0x42, 0x2e, 0x5a, 0x2c, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
-	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x65, 0x6c, 0x6c, 0x62, 0x72, 0x69, 0x63, 0x6b, 0x73, 0x2f,
-	0x4c, 0x6f, 0x41, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x62, 0x6c, 0x69, 0x6e, 0x64, 0x73, 0x69, 0x67,
-	0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6f, 0x74, 0x6f, 0x12, 0x05, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x38, 0x0a, 0x0a, 0x47, 0x65,
+	0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73,
+	0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61,
+	0x67, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x03, 0x6b, 0x65, 0x79, 0x22, 0x49, 0x0a, 0x0b, 0x47, 0x65, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x0c, 0x0a, 0x01, 0x72, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x01, 0x72, 0x12, 0x16, 0x0a, 0x06, 0x68, 0x61, 0x73, 0x68, 0x65,
+	0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x68, 0x61, 0x73, 0x68, 0x65, 0x64, 0x22,
+	0x35, 0x0a, 0x0b, 0x53, 0x69, 0x67, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14,
+	0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74,
+	0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x22, 0x20, 0x0a, 0x0c, 0x53, 0x69, 0x67, 0x6e, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x73, 0x69, 0x67, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x03, 0x73, 0x69, 0x67, 0x22, 0x4d, 0x0a, 0x0d, 0x56, 0x65, 0x72, 0x69,
+	0x66, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73,
+	0x61, 0x67, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x73, 0x69, 0x67, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x03, 0x73, 0x69, 0x67, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x22, 0x2a, 0x0a, 0x0e, 0x56, 0x65, 0x72, 0x69, 0x66,
+	0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x73, 0x75, 0x63,
+	0x63, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x73, 0x75, 0x63, 0x63,
+	0x65, 0x73, 0x73, 0x32, 0x38, 0x0a, 0x06, 0x53, 0x65, 0x6e, 0x64, 0x65, 0x72, 0x12, 0x2e, 0x0a,
+	0x03, 0x47, 0x65, 0x6e, 0x12, 0x11, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47, 0x65, 0x6e,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e,
+	0x47, 0x65, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x32, 0x74, 0x0a,
+	0x06, 0x53, 0x69, 0x67, 0x6e, 0x65, 0x72, 0x12, 0x31, 0x0a, 0x04, 0x53, 0x69, 0x67, 0x6e, 0x12,
+	0x12, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x69, 0x67, 0x6e,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x37, 0x0a, 0x06, 0x56, 0x65,
+	0x72, 0x69, 0x66, 0x79, 0x12, 0x14, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x56, 0x65, 0x72,
+	0x69, 0x66, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x22, 0x00, 0x42, 0x2e, 0x5a, 0x2c, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
+	0x6d, 0x2f, 0x63, 0x65, 0x6c, 0x6c, 0x62, 0x72, 0x69, 0x63, 0x6b, 0x73, 0x2f, 0x4c, 0x6f, 0x41,
+	0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x62, 0x6c, 0x69, 0x6e, 0x64, 0x73, 0x69, 0x67, 0x2f, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -145,16 +406,24 @@ func file_pkg_blindsig_proto_blindsig_proto_rawDescGZIP() []byte {
 	return file_pkg_blindsig_proto_blindsig_proto_rawDescData
 }
 
-var file_pkg_blindsig_proto_blindsig_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_pkg_blindsig_proto_blindsig_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_pkg_blindsig_proto_blindsig_proto_goTypes = []interface{}{
-	(*Padding)(nil), // 0: proto.Padding
-	(*Token)(nil),   // 1: proto.Token
+	(*GenRequest)(nil),     // 0: proto.GenRequest
+	(*GenResponse)(nil),    // 1: proto.GenResponse
+	(*SignRequest)(nil),    // 2: proto.SignRequest
+	(*SignResponse)(nil),   // 3: proto.SignResponse
+	(*VerifyRequest)(nil),  // 4: proto.VerifyRequest
+	(*VerifyResponse)(nil), // 5: proto.VerifyResponse
 }
 var file_pkg_blindsig_proto_blindsig_proto_depIdxs = []int32{
-	0, // 0: proto.BlindSig.GetToken:input_type -> proto.Padding
-	1, // 1: proto.BlindSig.GetToken:output_type -> proto.Token
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	0, // 0: proto.Sender.Gen:input_type -> proto.GenRequest
+	2, // 1: proto.Signer.Sign:input_type -> proto.SignRequest
+	4, // 2: proto.Signer.Verify:input_type -> proto.VerifyRequest
+	1, // 3: proto.Sender.Gen:output_type -> proto.GenResponse
+	3, // 4: proto.Signer.Sign:output_type -> proto.SignResponse
+	5, // 5: proto.Signer.Verify:output_type -> proto.VerifyResponse
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -167,7 +436,7 @@ func file_pkg_blindsig_proto_blindsig_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_pkg_blindsig_proto_blindsig_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Padding); i {
+			switch v := v.(*GenRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -179,7 +448,55 @@ func file_pkg_blindsig_proto_blindsig_proto_init() {
 			}
 		}
 		file_pkg_blindsig_proto_blindsig_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Token); i {
+			switch v := v.(*GenResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pkg_blindsig_proto_blindsig_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SignRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pkg_blindsig_proto_blindsig_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SignResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pkg_blindsig_proto_blindsig_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*VerifyRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pkg_blindsig_proto_blindsig_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*VerifyResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -197,9 +514,9 @@ func file_pkg_blindsig_proto_blindsig_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_pkg_blindsig_proto_blindsig_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   6,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   2,
 		},
 		GoTypes:           file_pkg_blindsig_proto_blindsig_proto_goTypes,
 		DependencyIndexes: file_pkg_blindsig_proto_blindsig_proto_depIdxs,

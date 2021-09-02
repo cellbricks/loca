@@ -4,14 +4,43 @@ option go_package = "github.com/cellbricks/LoA/pkg/blindsig/proto";
 
 package proto;
 
-service BlindSig {
-  rpc GetToken(Padding) returns (Token) {}
+// bTelco
+service Sender {
+  rpc Gen(GenRequest) returns (GenResponse) {}
 }
 
-message Padding{
-  string padding = 1;
+message GenRequest {
+  string message = 1;
+  string key = 2;
 }
 
-message Token {
+message GenResponse {
   string token = 1;
+  string r = 2;
+  string hashed = 3;
+}
+
+// Broker
+service Signer {
+  rpc Sign(SignRequest) returns (SignResponse) {}
+  rpc Verify(VerifyRequest) returns (VerifyResponse) {}
+}
+
+message SignRequest {
+  string token = 1;
+  string key = 2;
+}
+
+message SignResponse {
+  string sig = 1;
+}
+
+message VerifyRequest {
+  string message = 1;
+  string sig = 2;
+  string key = 3;
+}
+
+message VerifyResponse {
+  string success = 1;
 }
