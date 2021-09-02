@@ -20,7 +20,7 @@ message GenResponse {
   string hashed = 3;
 }
 
-// Broker
+// Broker. We assume signer also verifies.
 service Signer {
   rpc Sign(SignRequest) returns (SignResponse) {}
   rpc Verify(VerifyRequest) returns (VerifyResponse) {}
