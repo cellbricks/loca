@@ -2,7 +2,6 @@ package blindsig
 
 import (
 	"crypto"
-	"crypto/rand"
 	"crypto/rsa"
 	_ "crypto/sha256"
 
@@ -15,25 +14,39 @@ const (
 	keySize  = 2048
 )
 
-// TBD external key
-var key, _ = rsa.GenerateKey(rand.Reader, keySize)
 
-func GenToken(m string) ([]byte, []byte, error) {
-	message := []byte(m)
+// Gen runs at the bTelco to generate a blinded message
+// using the broker's public key.
+func Gen(message string, key *rsa.PublicKey) ([]byte, []byte, []byte, error) {
+	mBytes := []byte(message)
+	hashed := fdh.Sum(crypto.SHA256, hashSize, mBytes)
 
-	// We do a SHA256 full-domain-hash expanded to 1536 bits (3/4 the key size)
-	hashed := fdh.Sum(crypto.SHA256, hashSize, message)
-
-	// Blind the hashed message
-	blinded, unblinder, err := rsablind.Blind(&key.PublicKey, hashed)
+	// Blind the hashed message; unblinder -> random padding
+	blinded, unblinder, err := rsablind.Blind(key, hashed)
 	if err != nil {
 		panic(err)
 	}
 
-	// Blind sign the blinded message
-	sig, err := rsablind.BlindSign(key, blinded)
+	return blinded, unblinder, hashed, nil
+}
+
+// Sign runs at the broker to sign the bTelco generated
+// tokens; it returns the (blinded) signature.
+func Sign(token []byte, key *rsa.PrivateKey) ([]byte, error) {
+	sig, err := rsablind.BlindSign(key, token)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
+
 	}
-	return sig, unblinder, nil
+	return sig, nil
+}
+
+// Verify runs at the broker to validate the unblinded sig.
+func Verify(message []byte, sig []byte, key *rsa.PublicKey) (bool, error) {
+	err := rsablind.VerifyBlindSignature(key, message, sig)
+	if err != nil {
+		return false, err
+
+	}
+	return true, nil
 }
